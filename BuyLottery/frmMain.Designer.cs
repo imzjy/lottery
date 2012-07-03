@@ -66,10 +66,6 @@
             this.DatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemUpdateDatabase = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemClear = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemBoughtRecords = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemShowBoughtRecords = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItemClearBoughtRecords = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -405,8 +401,7 @@
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.DatabaseToolStripMenuItem,
-            this.toolStripMenuItemBoughtRecords});
+            this.DatabaseToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(988, 24);
@@ -424,7 +419,7 @@
             // menuItemExit
             // 
             this.menuItemExit.Name = "menuItemExit";
-            this.menuItemExit.Size = new System.Drawing.Size(113, 22);
+            this.menuItemExit.Size = new System.Drawing.Size(152, 22);
             this.menuItemExit.Text = "退出(&X)";
             this.menuItemExit.Click += new System.EventHandler(this.menuItemExit_Click);
             // 
@@ -440,45 +435,17 @@
             // menuItemUpdateDatabase
             // 
             this.menuItemUpdateDatabase.Name = "menuItemUpdateDatabase";
-            this.menuItemUpdateDatabase.Size = new System.Drawing.Size(152, 22);
+            this.menuItemUpdateDatabase.Size = new System.Drawing.Size(114, 22);
             this.menuItemUpdateDatabase.Text = "更新(&U)";
             this.menuItemUpdateDatabase.Click += new System.EventHandler(this.menuItemUpdateDatabase_Click);
             // 
             // menuItemClear
             // 
             this.menuItemClear.Name = "menuItemClear";
-            this.menuItemClear.Size = new System.Drawing.Size(152, 22);
+            this.menuItemClear.Size = new System.Drawing.Size(114, 22);
             this.menuItemClear.Text = "清空(&C)";
             this.menuItemClear.Visible = false;
             this.menuItemClear.Click += new System.EventHandler(this.menuItemClear_Click);
-            // 
-            // toolStripMenuItemBoughtRecords
-            // 
-            this.toolStripMenuItemBoughtRecords.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemShowBoughtRecords,
-            this.toolStripSeparator1,
-            this.toolStripMenuItemClearBoughtRecords});
-            this.toolStripMenuItemBoughtRecords.Name = "toolStripMenuItemBoughtRecords";
-            this.toolStripMenuItemBoughtRecords.Size = new System.Drawing.Size(67, 20);
-            this.toolStripMenuItemBoughtRecords.Text = "购买记录";
-            // 
-            // toolStripMenuItemShowBoughtRecords
-            // 
-            this.toolStripMenuItemShowBoughtRecords.Name = "toolStripMenuItemShowBoughtRecords";
-            this.toolStripMenuItemShowBoughtRecords.Size = new System.Drawing.Size(152, 22);
-            this.toolStripMenuItemShowBoughtRecords.Text = "显示";
-            this.toolStripMenuItemShowBoughtRecords.Click += new System.EventHandler(this.toolStripMenuItemShowBoughtRecords_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
-            // 
-            // toolStripMenuItemClearBoughtRecords
-            // 
-            this.toolStripMenuItemClearBoughtRecords.Name = "toolStripMenuItemClearBoughtRecords";
-            this.toolStripMenuItemClearBoughtRecords.Size = new System.Drawing.Size(152, 22);
-            this.toolStripMenuItemClearBoughtRecords.Text = "清空";
             // 
             // frmMain
             // 
@@ -554,10 +521,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuItemUpdateDatabase;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusSpliter;
         private System.Windows.Forms.ToolStripMenuItem menuItemClear;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemBoughtRecords;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemShowBoughtRecords;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemClearBoughtRecords;
 
 
     }

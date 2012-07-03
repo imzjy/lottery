@@ -2,5 +2,9 @@
 bin
 obj
 
+# Personal VS settings
+*.suo
+*.user
+
 # mstest test results
 TestResults
