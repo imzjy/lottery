@@ -13,6 +13,7 @@ using System.Net;
 using System.Diagnostics;
 using BuyLottery.DataAccess;
 using BuyLottery.Common;
+using Json;
 
 namespace BuyLottery
 {
@@ -32,9 +33,8 @@ namespace BuyLottery
         }
 
         Queue<TicketsQueueItem> ticketQueue = null;
-        static string caipiao_main_url = "http://caipiao.taobao.com/lottery/order/united_hall.htm?lottery_type=SSQ";
         static string caipiao_login_url = "https://login.taobao.com/member/login.jhtml?f=top&redirectURL=http%3A%2F%2Fcaipiao.taobao.com%2F";
-        static string page_url_template = "http://caipiao.taobao.com/lottery/order/united_list.htm?page={0}&lottery_type=SSQ";
+        static string page_url_template = "http://caipiao.taobao.com/lottery/ajax/get_united_list.htm?page={0}&lotteryType=SSQ";
         static int totalTicketsNumber = 0;
         static DataTable dtTickets = null;
         static DataView dvTickets = null;
@@ -81,20 +81,13 @@ namespace BuyLottery
         private static int GetTotalPageNumbers()
         {
             WebClient web = new WebClient();
-            string hall_main_html = web.DownloadString(caipiao_main_url);
+            string hall_main_html = web.DownloadString(string.Format(page_url_template,1));
 
-            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
-            doc.LoadHtml(hall_main_html);
+            dynamic lottery = JsonParser.Deserialize(hall_main_html);
 
-            //get total pages
-            var totalPagesXPath = "//*[@id=\"listpage\"]/div/span[2]/span/a[5]";
-            var totalPages = doc.DocumentNode.SelectSingleNode(totalPagesXPath).InnerText;
-            int num = 0, nPages = 0;
-            if (int.TryParse(totalPages, out num))
-                nPages = num;
-            else
-                nPages = 0;
-            return nPages;
+            int totalPages = lottery.totalPage;
+
+            return totalPages;
         }
 
         void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -134,26 +127,20 @@ namespace BuyLottery
             StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding(936));
             var page_html = sr.ReadToEnd();
 
-            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
-            doc.LoadHtml(page_html);
+            dynamic lottery = JsonParser.Deserialize(page_html);
 
-            var tBodyXPath = "//*[@id=\"J-BuyList\"]/tbody";
-            var tbody = doc.DocumentNode.SelectSingleNode(tBodyXPath);
-            var rows = tbody.SelectNodes("tr");
-
-            for (int i = 0; i < rows.Count; i++)  
+            for (int i = 0; i < lottery.schemes.Count; i++)
             {
-                var row = rows[i];
-                var cols = row.SelectNodes("td");
+                var ticket = lottery.schemes[i];
 
-                var seq         = cols[0].InnerText;
-                var creator     = cols[1].InnerText.Trim();
-                var title       = cols[2].InnerText.Trim();
-                var amount      = decimal.Parse(cols[3].InnerText);
-                var price       = decimal.Parse(cols[4].InnerText);
-                var progress    = decimal.Parse(cols[5].InnerText.TrimEnd('%'))/100;
-                var url         = cols[2].SelectSingleNode("a").Attributes["href"].Value;
-                var id          = cols[6].SelectSingleNode("a").Attributes["rel"].Value;
+                string id = ticket["id"];
+                string creator = ticket["userName"];
+                string title = ticket["title"];
+                decimal amount = decimal.Parse(ticket["amountMoney"]);
+                decimal price = decimal.Parse(ticket["unitMoney"]);
+                decimal progress = Convert.ToDecimal(ticket["progress"] / 100);
+                string url = ticket["detailLink"];
+                
                 DAHelper.AddTickets(id, creator, title, amount, price, progress, url, TicketStatus.New);
 
                 totalTicketsNumber += 1;
