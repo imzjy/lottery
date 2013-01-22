@@ -85,7 +85,7 @@ namespace BuyLottery
 
             dynamic lottery = JsonParser.Deserialize(hall_main_html);
 
-            int totalPages = lottery.totalPage;
+            int totalPages = Convert.ToInt32(lottery.totalpage);
 
             return totalPages;
         }
